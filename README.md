@@ -1,17 +1,21 @@
 # react-login
 
+[![NPM version][npm-image]][npm-url]
+
+Simple login component.
+
 ## Installation
 
-Install the library with `npm install gate6reactlogin`
+Install with `npm install gate6reactlogin`
 
 
 ## Example usage
 
-1. Import Login componenet from gate6reactlogin
+1. Import Login component from gate6reactlogin
 2. Define "config" variables.
 3. Create submit handle function.
-4. Pass "config" variables in "props" of Login componenet.
-5.
+4. Pass "config" variables in "props" of Login component.
+
 
 ```javascript
 import React from "react";
