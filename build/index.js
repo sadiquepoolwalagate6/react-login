@@ -1094,18 +1094,32 @@ var Login = function (_Component) {
         value: ''
       },
       passPattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$/,
+
       config: {
-        handleSubmit: _this.handleSubmit,
+        handleSubmit: '',
+        parentClass: 'loginWrapper',
+        passwordPattern: '^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$',
+        usernameLabel: 'Email Address',
+        passwordLabel: 'Password',
+        inputClass: 'form-input',
+        errorClass: 'error-text',
+        submitButtonClass: 'submit-button'
+
+      }
+    };
+    if (_this.props.config) {
+      _this.state.config = {
+        handleSubmit: _this.props.config.handleSubmit,
         parentClass: _this.props.config.parentClass ? _this.props.config.parentClass : 'loginWrapper',
         passwordPattern: _this.props.config.passwordPattern ? _this.props.config.passwordPattern : '^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$',
-        usernameLabel: _this.props.config.usernameLabel ? _this.props.config.usernameLabel : 'Email Address',
+        usernameLabel: _this.props.config.usernameLabel ? _this.props.config.usernameLabel : 'Email',
         passwordLabel: _this.props.config.passwordLabel ? _this.props.config.passwordLabel : 'Password',
         inputClass: _this.props.config.inputClass ? _this.props.config.inputClass : 'form-input',
         errorClass: _this.props.config.errorClass ? _this.props.config.errorClass : 'error-text',
         submitButtonClass: _this.props.config.submitButtonClass ? _this.props.config.errorClass : 'submit-button'
 
-      }
-    };
+      };
+    }
 
     _this.handleChange = _this.handleChange.bind(_this);
     _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -1144,24 +1158,29 @@ var Login = function (_Component) {
     key: 'handleSubmit',
     value: function handleSubmit(event) {
       event.preventDefault();
+      if (!this.state.config.handleSubmit) {
+        alert('PLease define submit handle function in config');
+      }
       var user = {
         email: this.state.email.value,
         password: this.state.password.value
       };
 
       if (_validator2.default.isEmail(user.email) && user.email && this.state.passPattern.test(user.password) && user.password) {
-        this.props.config.handleSubmit(user, 'success');
+        if (this.state.config.handleSubmit) {
+          this.state.config.handleSubmit(user, 'success');
+        }
       } else {
-        this.props.config.handleSubmit(user, 'error');
+        if (this.state.config.handleSubmit) {
+          this.state.config.handleSubmit(user, 'error');
+        }
         return;
       }
     }
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.props);
       var config = this.state.config;
-
 
       return _react2.default.createElement(
         'div',
