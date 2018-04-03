@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/sadiquepoolwalagate6/react-login/issues"
   },
-  "homepage": "https://github.com/sadiquepoolwalagate6/react-login#readme"
+  "homepage": "https://github.com/sadiquepoolwalagate6/react-login#readme",
+  "dependencies": {
+    "react": "^16.3.0"
+  }
 }
