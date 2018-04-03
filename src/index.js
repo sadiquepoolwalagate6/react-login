@@ -14,18 +14,31 @@ class Login extends Component {
         error: false,
         touch: false,
         value: ''
-      }
+      },
+      passPattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$/,
+      config: {
+        handleSubmit :this.handleSubmit,
+        parentClass: this.props.config.parentClass ? this.props.config.parentClass : 'loginWrapper',
+        passwordPattern: this.props.config.passwordPattern ? this.props.config.passwordPattern : '^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$',
+        usernameLabel: this.props.config.usernameLabel ? this.props.config.usernameLabel : 'Email Address',
+        passwordLabel: this.props.config.passwordLabel ? this.props.config.passwordLabel : 'Password',
+        inputClass: this.props.config.inputClass ? this.props.config.inputClass : 'form-input',
+        errorClass: this.props.config.errorClass ? this.props.config.errorClass : 'error-text',
+        submitButtonClass: this.props.config.submitButtonClass ? this.props.config.errorClass : 'submit-button',
+
+       }
     };
-    console.log(validator);
+
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    console.log('props',props);
+
   }
   handleChange(event) {
     const target = event.target;
     const value = target.value;
     const name = target.name;
+
 
     if (validator.isEmail(value) && name == 'email') {
       this.setState({
@@ -35,7 +48,7 @@ class Login extends Component {
           value: value
         }
       });
-    } else if (validator.isAlphanumeric(value) && name == 'password') {
+    } else if (this.state.passPattern.test(value) && name == 'password') {
       this.setState({
         [name]: {
           error: false,
@@ -56,63 +69,58 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const user = {
+      email: this.state.email.value,
+      password: this.state.password.value
+    };
 
     if (
-      validator.isEmail(this.state.email.value) &&
-      this.state.email.value &&
-      validator.isAlphanumeric(
-        this.state.password.value && this.state.password.value
-      )
+      validator.isEmail(user.email) &&
+      user.email &&
+      this.state.passPattern.test(user.password) &&
+      user.password
     ) {
-     // const { login } = this.props.actions;
-      const user = {
-        email: this.state.email.value,
-        password: this.state.password.value
-      };
-     // login(user);
+      this.props.config.handleSubmit(user, 'success');
     } else {
-      alert('Please enter all requierd field');
+      this.props.config.handleSubmit(user, 'error');
       return;
     }
   }
 
   render() {
-    console.log(this.props);
+    console.log(this.props)
+    const { config } = this.state;
 
     return (
-      <div>
-        <h1>Login Page</h1>
+      <div className={config.parentClass}>
         <form onSubmit={this.handleSubmit}>
-          <label>
             <div>
-              <label>Email *</label>
-              <br />
+              <label>{config.usernameLabel}</label>
               <input
                 name="email"
                 type="text"
+                className={config.inputClass}
                 value={this.state.email.value}
                 onChange={this.handleChange}
               />
               {this.state.email.error && (
-                <div className="required">Please enter valid email</div>
+                <div className={config.errorClass}>Please enter valid email</div>
               )}
             </div>
             <div>
-              <label>Password *</label>
-              <br />
+              <label>{config.passwordLabel}</label>
               <input
                 name="password"
                 type="text"
+                className={config.inputClass}
                 value={this.state.password.value}
                 onChange={this.handleChange}
               />
               {this.state.password.error && (
-                <div className="required">Please enter valid Password</div>
+                <div className={config.errorClass}>Please enter valid Password</div>
               )}
             </div>
-
-          </label>
-          <button type="submit">Submit</button>
+          <button type="submit" className={config.submitButtonClass}>Submit</button>
         </form>
 
       </div>
