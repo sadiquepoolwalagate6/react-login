@@ -1,6 +1,6 @@
 {
   "name": "gate6reactlogin",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "react login boilerplate",
   "main": "build/index.js",
   "peerDependencies": {
