@@ -1219,7 +1219,7 @@ var Login = function (_Component) {
             ),
             _react2.default.createElement('input', {
               name: 'password',
-              type: 'text',
+              type: 'password',
               className: config.inputClass,
               value: this.state.password.value,
               onChange: this.handleChange
