@@ -1,6 +1,6 @@
 {
   "name": "gate6reactlogin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "react login boilerplate",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "url": "https://github.com/sadiquepoolwalagate6/react-login/issues"
   },
   "homepage": "https://github.com/sadiquepoolwalagate6/react-login#readme",
-   "devDependencies": {
+  "devDependencies": {
     "autoprefixer": "^7.2.5",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
