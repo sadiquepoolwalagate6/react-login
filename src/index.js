@@ -21,21 +21,20 @@ class Login extends Component {
         handleSubmit:'',
         parentClass: 'loginWrapper',
         passwordPattern: '^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$',
-        usernameLabel:  'Email Address',
+        usernameLabel:  'Email',
         passwordLabel:   'Password',
-        inputClass:   'form-input',
-        errorClass:   'error-text',
-        submitButtonClass:  'submit-button',
 
        }
     };
     if(this.props.config){
         this.state.config ={
-          handleSubmit :this.props.config.handleSubmit,
-          parentClass: this.props.config.parentClass ? this.props.config.parentClass+' loginWrapper' : 'loginWrapper',
-          passwordPattern: this.props.config.passwordPattern ? this.props.config.passwordPattern : '^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$',
-          usernameLabel: this.props.config.usernameLabel ? this.props.config.usernameLabel : 'Email',
-          passwordLabel: this.props.config.passwordLabel ? this.props.config.passwordLabel : 'Password',
+          handleSubmit :      this.props.config.handleSubmit,
+          parentClass:        this.props.config.parentClass ? this.props.config.parentClass+' loginWrapper' : 'loginWrapper',
+          passwordPattern:    this.props.config.passwordPattern ? this.props.config.passwordPattern : '^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$',
+          usernameLabel:      this.props.config.usernameLabel ? this.props.config.usernameLabel : 'Email',
+          passwordLabel:      this.props.config.passwordLabel ? this.props.config.passwordLabel : 'Password',
+          usernameErrorText:  this.props.config.usernameErrorText ? this.props.config.usernameErrorText : 'Please enter valid email',
+          passwordErrorText:  this.props.config.passwordErrorText ? this.props.config.passwordErrorText : 'Please enter valid password',
          }
   }
 
@@ -44,11 +43,7 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
   }
-  handleChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-
+  handleChange(name, value) {
 
     if (validator.isEmail(value) && name == 'email') {
       this.setState({
@@ -80,19 +75,23 @@ class Login extends Component {
   handleSubmit(event) {
     event.preventDefault();
     if(!this.state.config.handleSubmit){
-      alert('PLease define submit handle function in config')
+      alert('Please define submit handle function in config');
+      return false;
     }
     const user = {
       email: this.state.email.value,
       password: this.state.password.value
     };
-
-    if (
-      validator.isEmail(user.email) &&
-      user.email &&
-      this.state.passPattern.test(user.password) &&
-      user.password
-    ) {
+    let error = false;
+    if(!validator.isEmail(user.email)){
+      this.handleChange('email', user.email);
+      error = true;
+    }
+    if(!this.state.passPattern.test(user.password)){
+      this.handleChange('password', user.password);
+      error = true;
+    }
+    if (error === false) {
       if(this.state.config.handleSubmit){
         this.state.config.handleSubmit(user, 'success');
       }
@@ -102,6 +101,9 @@ class Login extends Component {
       }
       return;
     }
+
+
+
   }
 
   render() {
@@ -116,10 +118,10 @@ class Login extends Component {
                 type="text"
                 className='form-control'
                 value={this.state.email.value}
-                onChange={this.handleChange}
+                onChange={event => {this.handleChange(event.target.name, event.target.value)}}
               />
               {this.state.email.error && (
-                <div className='error-text'>Please enter valid email</div>
+                <div className='error-text'>{config.usernameErrorText}</div>
               )}
         </div>
         <div className="form-group">
@@ -129,10 +131,10 @@ class Login extends Component {
                 type="password"
                 className='form-control'
                 value={this.state.password.value}
-                onChange={this.handleChange}
+                onChange={event => {this.handleChange(event.target.name, event.target.value)}}
               />
                {this.state.password.error && (
-                <div className='error-text'>Please enter valid Password</div>
+                <div className='error-text'>{config.passwordErrorText}</div>
               )}
 
         </div>
