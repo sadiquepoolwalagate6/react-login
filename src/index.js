@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import validator from 'validator';
+import css from './login.css';
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -31,14 +32,10 @@ class Login extends Component {
     if(this.props.config){
         this.state.config ={
           handleSubmit :this.props.config.handleSubmit,
-          parentClass: this.props.config.parentClass ? this.props.config.parentClass : 'loginWrapper',
+          parentClass: this.props.config.parentClass ? this.props.config.parentClass+' loginWrapper' : 'loginWrapper',
           passwordPattern: this.props.config.passwordPattern ? this.props.config.passwordPattern : '^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$',
           usernameLabel: this.props.config.usernameLabel ? this.props.config.usernameLabel : 'Email',
           passwordLabel: this.props.config.passwordLabel ? this.props.config.passwordLabel : 'Password',
-          inputClass: this.props.config.inputClass ? this.props.config.inputClass : 'form-input',
-          errorClass: this.props.config.errorClass ? this.props.config.errorClass : 'error-text',
-          submitButtonClass: this.props.config.submitButtonClass ? this.props.config.errorClass : 'submit-button',
-
          }
   }
 
@@ -111,34 +108,42 @@ class Login extends Component {
     const { config } = this.state;
     return (
       <div className={config.parentClass}>
-        <form onSubmit={this.handleSubmit}>
-            <div>
-              <label>{config.usernameLabel}</label>
-              <input
+       <form onSubmit={this.handleSubmit}>
+        <div className="form-group">
+        <label>{config.usernameLabel}</label>
+          <input
                 name="email"
                 type="text"
-                className={config.inputClass}
+                className='form-control'
                 value={this.state.email.value}
                 onChange={this.handleChange}
               />
               {this.state.email.error && (
-                <div className={config.errorClass}>Please enter valid email</div>
+                <div className='error-text'>Please enter valid email</div>
               )}
-            </div>
-            <div>
-              <label>{config.passwordLabel}</label>
-              <input
+        </div>
+        <div className="form-group">
+          <label>{config.passwordLabel}</label>
+          <input
                 name="password"
                 type="password"
-                className={config.inputClass}
+                className='form-control'
                 value={this.state.password.value}
                 onChange={this.handleChange}
               />
-              {this.state.password.error && (
-                <div className={config.errorClass}>Please enter valid Password</div>
+               {this.state.password.error && (
+                <div className='error-text'>Please enter valid Password</div>
               )}
-            </div>
-          <button type="submit" className={config.submitButtonClass}>Submit</button>
+
+        </div>
+
+      <button type="submit" className='btn' >Submit</button>
+
+
+
+
+
+
         </form>
 
       </div>
