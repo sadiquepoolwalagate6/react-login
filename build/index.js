@@ -64,224 +64,11 @@ module.exports =
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 19);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(19);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _validator = __webpack_require__(18);
-
-var _validator2 = _interopRequireDefault(_validator);
-
-var _login = __webpack_require__(17);
-
-var _login2 = _interopRequireDefault(_login);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Login = function (_Component) {
-  _inherits(Login, _Component);
-
-  function Login(props) {
-    _classCallCheck(this, Login);
-
-    var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
-
-    _this.state = {
-      email: {
-        error: false,
-        touch: false,
-        value: ''
-      },
-      password: {
-        error: false,
-        touch: false,
-        value: ''
-      },
-      passPattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$/,
-
-      config: {
-        handleSubmit: '',
-        parentClass: 'loginWrapper',
-        passwordPattern: '^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$',
-        usernameLabel: 'Email',
-        passwordLabel: 'Password'
-
-      }
-    };
-    if (_this.props.config) {
-      _this.state.config = {
-        handleSubmit: _this.props.config.handleSubmit,
-        parentClass: _this.props.config.parentClass ? _this.props.config.parentClass + ' loginWrapper' : 'loginWrapper',
-        passwordPattern: _this.props.config.passwordPattern ? _this.props.config.passwordPattern : '^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$',
-        usernameLabel: _this.props.config.usernameLabel ? _this.props.config.usernameLabel : 'Email',
-        passwordLabel: _this.props.config.passwordLabel ? _this.props.config.passwordLabel : 'Password',
-        usernameErrorText: _this.props.config.usernameErrorText ? _this.props.config.usernameErrorText : 'Please enter valid email',
-        passwordErrorText: _this.props.config.passwordErrorText ? _this.props.config.passwordErrorText : 'Please enter valid password'
-      };
-    }
-
-    _this.handleChange = _this.handleChange.bind(_this);
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-
-    return _this;
-  }
-
-  _createClass(Login, [{
-    key: 'handleChange',
-    value: function handleChange(name, value) {
-
-      if (_validator2.default.isEmail(value) && name == 'email') {
-        this.setState(_defineProperty({}, name, {
-          error: false,
-          touch: true,
-          value: value
-        }));
-      } else if (this.state.passPattern.test(value) && name == 'password') {
-        this.setState(_defineProperty({}, name, {
-          error: false,
-          touch: true,
-          value: value
-        }));
-      } else {
-        this.setState(_defineProperty({}, name, {
-          error: true,
-          touch: true,
-          value: value
-        }));
-      }
-    }
-  }, {
-    key: 'handleSubmit',
-    value: function handleSubmit(event) {
-      event.preventDefault();
-      if (!this.state.config.handleSubmit) {
-        alert('Please define submit handle function in config');
-        return false;
-      }
-      var user = {
-        email: this.state.email.value,
-        password: this.state.password.value
-      };
-      var error = false;
-      if (!_validator2.default.isEmail(user.email)) {
-        this.handleChange('email', user.email);
-        error = true;
-      }
-      if (!this.state.passPattern.test(user.password)) {
-        this.handleChange('password', user.password);
-        error = true;
-      }
-      if (error === false) {
-        if (this.state.config.handleSubmit) {
-          this.state.config.handleSubmit(user, 'success');
-        }
-      } else {
-        if (this.state.config.handleSubmit) {
-          this.state.config.handleSubmit(user, 'error');
-        }
-        return;
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this2 = this;
-
-      var config = this.state.config;
-
-      return _react2.default.createElement(
-        'div',
-        { className: config.parentClass },
-        _react2.default.createElement(
-          'form',
-          { onSubmit: this.handleSubmit },
-          _react2.default.createElement(
-            'div',
-            { className: 'form-group' },
-            _react2.default.createElement(
-              'label',
-              null,
-              config.usernameLabel
-            ),
-            _react2.default.createElement('input', {
-              name: 'email',
-              type: 'text',
-              className: 'form-control',
-              value: this.state.email.value,
-              onChange: function onChange(event) {
-                _this2.handleChange(event.target.name, event.target.value);
-              }
-            }),
-            this.state.email.error && _react2.default.createElement(
-              'div',
-              { className: 'error-text' },
-              config.usernameErrorText
-            )
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'form-group' },
-            _react2.default.createElement(
-              'label',
-              null,
-              config.passwordLabel
-            ),
-            _react2.default.createElement('input', {
-              name: 'password',
-              type: 'password',
-              className: 'form-control',
-              value: this.state.password.value,
-              onChange: function onChange(event) {
-                _this2.handleChange(event.target.name, event.target.value);
-              }
-            }),
-            this.state.password.error && _react2.default.createElement(
-              'div',
-              { className: 'error-text' },
-              config.passwordErrorText
-            )
-          ),
-          _react2.default.createElement(
-            'button',
-            { type: 'submit', className: 'btn' },
-            'Submit'
-          )
-        )
-      );
-    }
-  }]);
-
-  return Login;
-}(_react.Component);
-
-exports.default = Login;
-
-/***/ }),
-/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -301,7 +88,7 @@ function assertString(input) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -325,7 +112,7 @@ function merge() {
 module.exports = exports['default'];
 
 /***/ }),
-/* 3 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -427,7 +214,7 @@ alphanumeric['pt-BR'] = alphanumeric['pt-PT'];
 decimal['pt-BR'] = decimal['pt-PT'];
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -438,11 +225,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isFQDN;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _merge = __webpack_require__(2);
+var _merge = __webpack_require__(1);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -494,7 +281,7 @@ function isFQDN(str, options) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -505,7 +292,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = toDate;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -519,7 +306,7 @@ function toDate(date) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -547,7 +334,7 @@ function toString(input) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -558,7 +345,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = blacklist;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -571,7 +358,7 @@ function blacklist(str, chars) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -585,7 +372,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.default = isByteLength;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -610,7 +397,7 @@ function isByteLength(str, options) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -622,7 +409,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.fullWidth = undefined;
 exports.default = isFullWidth;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -636,7 +423,7 @@ function isFullWidth(str) {
 }
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -648,7 +435,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.halfWidth = undefined;
 exports.default = isHalfWidth;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -662,7 +449,7 @@ function isHalfWidth(str) {
 }
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -673,7 +460,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isHexadecimal;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -688,7 +475,7 @@ function isHexadecimal(str) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -699,7 +486,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isIP;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -775,7 +562,7 @@ function isIP(str) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -786,7 +573,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isInt;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -814,7 +601,7 @@ function isInt(str, options) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -825,7 +612,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = ltrim;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -839,7 +626,7 @@ function ltrim(str, chars) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -850,7 +637,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = rtrim;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -870,7 +657,7 @@ function rtrim(str, chars) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -881,7 +668,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = toFloat;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -894,7 +681,7 @@ function toFloat(str) {
 module.exports = exports['default'];
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
@@ -944,7 +731,7 @@ if(false) {
 }
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -954,11 +741,11 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toDate = __webpack_require__(5);
+var _toDate = __webpack_require__(4);
 
 var _toDate2 = _interopRequireDefault(_toDate);
 
-var _toFloat = __webpack_require__(16);
+var _toFloat = __webpack_require__(15);
 
 var _toFloat2 = _interopRequireDefault(_toFloat);
 
@@ -994,11 +781,11 @@ var _isMACAddress = __webpack_require__(55);
 
 var _isMACAddress2 = _interopRequireDefault(_isMACAddress);
 
-var _isIP = __webpack_require__(12);
+var _isIP = __webpack_require__(11);
 
 var _isIP2 = _interopRequireDefault(_isIP);
 
-var _isFQDN = __webpack_require__(4);
+var _isFQDN = __webpack_require__(3);
 
 var _isFQDN2 = _interopRequireDefault(_isFQDN);
 
@@ -1034,11 +821,11 @@ var _isAscii = __webpack_require__(30);
 
 var _isAscii2 = _interopRequireDefault(_isAscii);
 
-var _isFullWidth = __webpack_require__(9);
+var _isFullWidth = __webpack_require__(8);
 
 var _isFullWidth2 = _interopRequireDefault(_isFullWidth);
 
-var _isHalfWidth = __webpack_require__(10);
+var _isHalfWidth = __webpack_require__(9);
 
 var _isHalfWidth2 = _interopRequireDefault(_isHalfWidth);
 
@@ -1054,7 +841,7 @@ var _isSurrogatePair = __webpack_require__(64);
 
 var _isSurrogatePair2 = _interopRequireDefault(_isSurrogatePair);
 
-var _isInt = __webpack_require__(13);
+var _isInt = __webpack_require__(12);
 
 var _isInt2 = _interopRequireDefault(_isInt);
 
@@ -1066,7 +853,7 @@ var _isDecimal = __webpack_require__(37);
 
 var _isDecimal2 = _interopRequireDefault(_isDecimal);
 
-var _isHexadecimal = __webpack_require__(11);
+var _isHexadecimal = __webpack_require__(10);
 
 var _isHexadecimal2 = _interopRequireDefault(_isHexadecimal);
 
@@ -1102,7 +889,7 @@ var _isLength = __webpack_require__(53);
 
 var _isLength2 = _interopRequireDefault(_isLength);
 
-var _isByteLength = __webpack_require__(8);
+var _isByteLength = __webpack_require__(7);
 
 var _isByteLength2 = _interopRequireDefault(_isByteLength);
 
@@ -1178,11 +965,11 @@ var _isPostalCode = __webpack_require__(63);
 
 var _isPostalCode2 = _interopRequireDefault(_isPostalCode);
 
-var _ltrim = __webpack_require__(14);
+var _ltrim = __webpack_require__(13);
 
 var _ltrim2 = _interopRequireDefault(_ltrim);
 
-var _rtrim = __webpack_require__(15);
+var _rtrim = __webpack_require__(14);
 
 var _rtrim2 = _interopRequireDefault(_rtrim);
 
@@ -1206,7 +993,7 @@ var _whitelist = __webpack_require__(77);
 
 var _whitelist2 = _interopRequireDefault(_whitelist);
 
-var _blacklist = __webpack_require__(7);
+var _blacklist = __webpack_require__(6);
 
 var _blacklist2 = _interopRequireDefault(_blacklist);
 
@@ -1218,7 +1005,7 @@ var _normalizeEmail = __webpack_require__(71);
 
 var _normalizeEmail2 = _interopRequireDefault(_normalizeEmail);
 
-var _toString = __webpack_require__(6);
+var _toString = __webpack_require__(5);
 
 var _toString2 = _interopRequireDefault(_toString);
 
@@ -1301,10 +1088,222 @@ exports.default = validator;
 module.exports = exports['default'];
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(18);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _validator = __webpack_require__(17);
+
+var _validator2 = _interopRequireDefault(_validator);
+
+var _login = __webpack_require__(16);
+
+var _login2 = _interopRequireDefault(_login);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Login = function (_Component) {
+  _inherits(Login, _Component);
+
+  function Login(props) {
+    _classCallCheck(this, Login);
+
+    var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
+
+    _this.state = {
+      email: {
+        error: false,
+        touch: false,
+        value: ''
+      },
+      password: {
+        error: false,
+        touch: false,
+        value: ''
+      },
+      config: {
+        handleSubmit: '',
+        parentClass: 'loginWrapper',
+        passwordPattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$/,
+        usernameLabel: 'Email',
+        passwordLabel: 'Password',
+        usernameErrorText: 'Please enter valid email',
+        passwordErrorText: 'Password must contain at least 8 characters, including 1 uppercase and 1 number.'
+      }
+    };
+    if (_this.props.config) {
+      _this.state.config = {
+        handleSubmit: _this.props.config.handleSubmit,
+        parentClass: _this.props.config.parentClass ? _this.props.config.parentClass + ' loginWrapper' : 'loginWrapper',
+        passwordPattern: _this.props.config.passwordPattern ? _this.props.config.passwordPattern : /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$/,
+        usernameLabel: _this.props.config.usernameLabel ? _this.props.config.usernameLabel : 'Email',
+        passwordLabel: _this.props.config.passwordLabel ? _this.props.config.passwordLabel : 'Password',
+        usernameErrorText: _this.props.config.usernameErrorText ? _this.props.config.usernameErrorText : 'Please enter valid email',
+        passwordErrorText: _this.props.config.passwordErrorText ? _this.props.config.passwordErrorText : 'Password must contain at least 8 characters, including 1 uppercase and 1 number.'
+      };
+    }
+
+    _this.handleChange = _this.handleChange.bind(_this);
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+
+    return _this;
+  }
+
+  _createClass(Login, [{
+    key: 'handleChange',
+    value: function handleChange(name, value) {
+
+      if (_validator2.default.isEmail(value) && name == 'email') {
+        this.setState(_defineProperty({}, name, {
+          error: false,
+          touch: true,
+          value: value
+        }));
+      } else if (this.state.config.passwordPattern.test(value) && name == 'password') {
+        this.setState(_defineProperty({}, name, {
+          error: false,
+          touch: true,
+          value: value
+        }));
+      } else {
+        this.setState(_defineProperty({}, name, {
+          error: true,
+          touch: true,
+          value: value
+        }));
+      }
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(event) {
+      event.preventDefault();
+      if (!this.state.config.handleSubmit) {
+        alert('Please define submit handle method in config');
+        return false;
+      }
+      var user = {
+        email: this.state.email.value,
+        password: this.state.password.value
+      };
+      var error = false;
+      if (!_validator2.default.isEmail(user.email)) {
+        this.handleChange('email', user.email);
+        error = true;
+      }
+      if (!this.state.config.passwordPattern.test(user.password)) {
+        this.handleChange('password', user.password);
+        error = true;
+      }
+      if (error === false) {
+        if (this.state.config.handleSubmit) {
+          this.state.config.handleSubmit(user, 'success');
+        }
+      } else {
+        if (this.state.config.handleSubmit) {
+          this.state.config.handleSubmit(user, 'error');
+        }
+        return;
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var config = this.state.config;
+
+      return _react2.default.createElement(
+        'div',
+        { className: config.parentClass },
+        _react2.default.createElement(
+          'form',
+          { onSubmit: this.handleSubmit },
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              null,
+              config.usernameLabel
+            ),
+            _react2.default.createElement('input', {
+              name: 'email',
+              type: 'text',
+              className: 'form-control',
+              value: this.state.email.value,
+              onChange: function onChange(event) {
+                _this2.handleChange(event.target.name, event.target.value);
+              }
+            }),
+            this.state.email.error && _react2.default.createElement(
+              'div',
+              { className: 'error-text' },
+              config.usernameErrorText
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              null,
+              config.passwordLabel
+            ),
+            _react2.default.createElement('input', {
+              name: 'password',
+              type: 'password',
+              className: 'form-control',
+              value: this.state.password.value,
+              onChange: function onChange(event) {
+                _this2.handleChange(event.target.name, event.target.value);
+              }
+            }),
+            this.state.password.error && _react2.default.createElement(
+              'div',
+              { className: 'error-text' },
+              config.passwordErrorText
+            )
+          ),
+          _react2.default.createElement(
+            'button',
+            { type: 'submit', className: 'btn' },
+            'Submit'
+          )
+        )
+      );
+    }
+  }]);
+
+  return Login;
+}(_react.Component);
+
+exports.default = Login;
 
 /***/ }),
 /* 20 */
@@ -1315,7 +1314,7 @@ exports = module.exports = __webpack_require__(21)(false);
 
 
 // module
-exports.push([module.i, ".loginWrapper {\r\n    font-family: \"Helvetica Neue\",Helvetica,Arial,sans-serif;\r\n    font-size: 14px;\r\n    line-height: 1.42857143;\r\n    color: #333;\r\n    background-color: #fff;\r\n    -webkit-box-sizing: border-box;\r\n    -moz-box-sizing: border-box;\r\n    box-sizing: border-box;\r\n    padding: 40px;\r\n    margin: 0 auto;\r\n    max-width:500px;\r\n    border: 1px solid #efefef;\r\n}\r\n.loginWrapper * {\r\n    -webkit-box-sizing: border-box;\r\n    -moz-box-sizing: border-box;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.loginWrapper .form-control {\r\n    display: block;\r\n    width: 100%;\r\n    height: 34px;\r\n    padding: 6px 12px;\r\n    font-size: 14px;\r\n    line-height: 1.42857143;\r\n    color: #555;\r\n    background-color: #fff;\r\n    background-image: none;\r\n    border: 1px solid #ccc;\r\n    border-radius: 4px;\r\n    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);\r\n    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);\r\n    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;\r\n    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;\r\n    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;\r\n}\r\n.loginWrapper .form-group {\r\n    margin-bottom: 15px;\r\n}\r\n.loginWrapper label {\r\n    display: inline-block;\r\n    max-width: 100%;\r\n    margin-bottom: 5px;\r\n    font-weight: 700;\r\n}\r\n.loginWrapper .btn {\r\n    display: inline-block;\r\n    padding: 6px 12px;\r\n    margin-bottom: 0;\r\n    font-size: 14px;\r\n    font-weight: 400;\r\n    line-height: 1.42857143;\r\n    text-align: center;\r\n    white-space: nowrap;\r\n    vertical-align: middle;\r\n    -ms-touch-action: manipulation;\r\n    touch-action: manipulation;\r\n    cursor: pointer;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    background-image: none;\r\n    border: 1px solid transparent;\r\n    border-radius: 4px;\r\n}\r\n.loginWrapper .error-text{ color: #ff0000; font-size: 12px; margin-top: 8px;}", ""]);
+exports.push([module.i, ".loginWrapper {\r\n    font-family: \"Helvetica Neue\",Helvetica,Arial,sans-serif;\r\n    font-size: 14px;\r\n    line-height: 1.42857143;\r\n    color: #333;\r\n    background-color: #fff;\r\n    -webkit-box-sizing: border-box;\r\n    -moz-box-sizing: border-box;\r\n    box-sizing: border-box;\r\n    padding: 40px;\r\n    margin: 0 auto;\r\n    max-width:500px;\r\n    border: 1px solid #efefef;\r\n}\r\n.loginWrapper * {\r\n    -webkit-box-sizing: border-box;\r\n    -moz-box-sizing: border-box;\r\n    box-sizing: border-box;\r\n}\r\n\r\n.loginWrapper .form-control {\r\n    display: block;\r\n    width: 100%;\r\n    height: 34px;\r\n    padding: 6px 12px;\r\n    font-size: 14px;\r\n    line-height: 1.42857143;\r\n    color: #555;\r\n    background-color: #fff;\r\n    background-image: none;\r\n    border: 1px solid #ccc;\r\n    border-radius: 4px;\r\n    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);\r\n    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);\r\n    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;\r\n    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;\r\n    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;\r\n}\r\n.loginWrapper .form-group {\r\n    margin-bottom: 15px;\r\n}\r\n.loginWrapper label {\r\n    display: inline-block;\r\n    max-width: 100%;\r\n    margin-bottom: 5px;\r\n    font-weight: 700;\r\n}\r\n.loginWrapper .btn {\r\n    display: inline-block;\r\n    padding: 6px 12px;\r\n    margin-bottom: 0;\r\n    font-size: 14px;\r\n    font-weight: 400;\r\n    line-height: 1.42857143;\r\n    text-align: center;\r\n    white-space: nowrap;\r\n    vertical-align: middle;\r\n    -ms-touch-action: manipulation;\r\n    touch-action: manipulation;\r\n    cursor: pointer;\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    user-select: none;\r\n    background: #e0e0e0;\r\n    border: 1px solid transparent;\r\n    border-radius: 4px;\r\n}\r\n.loginWrapper .error-text{ color: #ff0000; font-size: 12px; margin-top: 8px;}\r\n", ""]);
 
 // exports
 
@@ -1891,11 +1890,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = contains;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _toString = __webpack_require__(6);
+var _toString = __webpack_require__(5);
 
 var _toString2 = _interopRequireDefault(_toString);
 
@@ -1919,7 +1918,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = equals;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -1943,7 +1942,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = escape;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -1967,11 +1966,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isAfter;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _toDate = __webpack_require__(5);
+var _toDate = __webpack_require__(4);
 
 var _toDate2 = _interopRequireDefault(_toDate);
 
@@ -1999,11 +1998,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isAlpha;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _alpha = __webpack_require__(3);
+var _alpha = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2030,11 +2029,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isAlphanumeric;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _alpha = __webpack_require__(3);
+var _alpha = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2061,7 +2060,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isAscii;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2089,7 +2088,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isBase64;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2120,11 +2119,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isBefore;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _toDate = __webpack_require__(5);
+var _toDate = __webpack_require__(4);
 
 var _toDate2 = _interopRequireDefault(_toDate);
 
@@ -2152,7 +2151,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isBoolean;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2176,7 +2175,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isCreditCard;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2227,11 +2226,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isCurrency;
 
-var _merge = __webpack_require__(2);
+var _merge = __webpack_require__(1);
 
 var _merge2 = _interopRequireDefault(_merge);
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2325,7 +2324,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isDataURI;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2380,15 +2379,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isDecimal;
 
-var _merge = __webpack_require__(2);
+var _merge = __webpack_require__(1);
 
 var _merge2 = _interopRequireDefault(_merge);
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _alpha = __webpack_require__(3);
+var _alpha = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2427,11 +2426,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isDivisibleBy;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _toFloat = __webpack_require__(16);
+var _toFloat = __webpack_require__(15);
 
 var _toFloat2 = _interopRequireDefault(_toFloat);
 
@@ -2455,19 +2454,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isEmail;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _merge = __webpack_require__(2);
+var _merge = __webpack_require__(1);
 
 var _merge2 = _interopRequireDefault(_merge);
 
-var _isByteLength = __webpack_require__(8);
+var _isByteLength = __webpack_require__(7);
 
 var _isByteLength2 = _interopRequireDefault(_isByteLength);
 
-var _isFQDN = __webpack_require__(4);
+var _isFQDN = __webpack_require__(3);
 
 var _isFQDN2 = _interopRequireDefault(_isFQDN);
 
@@ -2550,7 +2549,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isEmpty;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2574,11 +2573,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isFloat;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _alpha = __webpack_require__(3);
+var _alpha = __webpack_require__(2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2605,7 +2604,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isHash;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2646,7 +2645,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isHexColor;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2672,7 +2671,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isISBN;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2735,7 +2734,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isISIN;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2789,7 +2788,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isISO31661Alpha2;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2816,7 +2815,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isISO8601;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2845,7 +2844,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isISRC;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2872,7 +2871,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isISSN;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -2939,11 +2938,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.default = isIn;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _toString = __webpack_require__(6);
+var _toString = __webpack_require__(5);
 
 var _toString2 = _interopRequireDefault(_toString);
 
@@ -2984,7 +2983,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.default = isJSON;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3018,7 +3017,7 @@ exports.default = function (str) {
   return lat.test(pair[0]) && long.test(pair[1]);
 };
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3044,7 +3043,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.default = isLength;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3081,7 +3080,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isLowercase;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3105,7 +3104,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isMACAddress;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3131,7 +3130,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isMD5;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3157,7 +3156,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isMimeType;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3215,7 +3214,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isMobilePhone;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3324,11 +3323,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isMongoId;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _isHexadecimal = __webpack_require__(11);
+var _isHexadecimal = __webpack_require__(10);
 
 var _isHexadecimal2 = _interopRequireDefault(_isHexadecimal);
 
@@ -3352,7 +3351,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isMultibyte;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3380,7 +3379,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isNumeric;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3406,7 +3405,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isPort;
 
-var _isInt = __webpack_require__(13);
+var _isInt = __webpack_require__(12);
 
 var _isInt2 = _interopRequireDefault(_isInt);
 
@@ -3447,7 +3446,7 @@ exports.default = function (str, locale) {
   throw new Error('Invalid locale \'' + locale + '\'');
 };
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3511,7 +3510,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isSurrogatePair;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3537,19 +3536,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isURL;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _isFQDN = __webpack_require__(4);
+var _isFQDN = __webpack_require__(3);
 
 var _isFQDN2 = _interopRequireDefault(_isFQDN);
 
-var _isIP = __webpack_require__(12);
+var _isIP = __webpack_require__(11);
 
 var _isIP2 = _interopRequireDefault(_isIP);
 
-var _merge = __webpack_require__(2);
+var _merge = __webpack_require__(1);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -3690,7 +3689,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isUUID;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3724,7 +3723,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isUppercase;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3748,13 +3747,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isVariableWidth;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _isFullWidth = __webpack_require__(9);
+var _isFullWidth = __webpack_require__(8);
 
-var _isHalfWidth = __webpack_require__(10);
+var _isHalfWidth = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3776,7 +3775,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = isWhitelisted;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3805,7 +3804,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = matches;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -3832,7 +3831,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = normalizeEmail;
 
-var _merge = __webpack_require__(2);
+var _merge = __webpack_require__(1);
 
 var _merge2 = _interopRequireDefault(_merge);
 
@@ -3967,11 +3966,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = stripLow;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
-var _blacklist = __webpack_require__(7);
+var _blacklist = __webpack_require__(6);
 
 var _blacklist2 = _interopRequireDefault(_blacklist);
 
@@ -3996,7 +3995,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = toBoolean;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -4023,7 +4022,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = toInt;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -4047,11 +4046,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = trim;
 
-var _rtrim = __webpack_require__(15);
+var _rtrim = __webpack_require__(14);
 
 var _rtrim2 = _interopRequireDefault(_rtrim);
 
-var _ltrim = __webpack_require__(14);
+var _ltrim = __webpack_require__(13);
 
 var _ltrim2 = _interopRequireDefault(_ltrim);
 
@@ -4074,7 +4073,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = unescape;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 
@@ -4098,7 +4097,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = whitelist;
 
-var _assertString = __webpack_require__(1);
+var _assertString = __webpack_require__(0);
 
 var _assertString2 = _interopRequireDefault(_assertString);
 

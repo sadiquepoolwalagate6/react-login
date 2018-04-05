@@ -15,28 +15,27 @@ class Login extends Component {
         touch: false,
         value: ''
       },
-      passPattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$/,
-
       config: {
         handleSubmit:'',
         parentClass: 'loginWrapper',
-        passwordPattern: '^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$',
+        passwordPattern: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$/,
         usernameLabel:  'Email',
-        passwordLabel:   'Password',
-
+        passwordLabel: 'Password',
+        usernameErrorText: 'Please enter valid email',
+        passwordErrorText: 'Password must contain at least 8 characters, including 1 uppercase and 1 number.',
        }
     };
     if(this.props.config){
-        this.state.config ={
-          handleSubmit :      this.props.config.handleSubmit,
-          parentClass:        this.props.config.parentClass ? this.props.config.parentClass+' loginWrapper' : 'loginWrapper',
-          passwordPattern:    this.props.config.passwordPattern ? this.props.config.passwordPattern : '^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$',
-          usernameLabel:      this.props.config.usernameLabel ? this.props.config.usernameLabel : 'Email',
-          passwordLabel:      this.props.config.passwordLabel ? this.props.config.passwordLabel : 'Password',
-          usernameErrorText:  this.props.config.usernameErrorText ? this.props.config.usernameErrorText : 'Please enter valid email',
-          passwordErrorText:  this.props.config.passwordErrorText ? this.props.config.passwordErrorText : 'Please enter valid password',
+        this.state.config = {
+          handleSubmit: this.props.config.handleSubmit,
+          parentClass: this.props.config.parentClass ? this.props.config.parentClass+' loginWrapper' : 'loginWrapper',
+          passwordPattern: this.props.config.passwordPattern ? this.props.config.passwordPattern : /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d$@$!%*#?&]{7,}\S$/,
+          usernameLabel: this.props.config.usernameLabel ? this.props.config.usernameLabel : 'Email',
+          passwordLabel: this.props.config.passwordLabel ? this.props.config.passwordLabel : 'Password',
+          usernameErrorText: this.props.config.usernameErrorText ? this.props.config.usernameErrorText : 'Please enter valid email',
+          passwordErrorText: this.props.config.passwordErrorText ? this.props.config.passwordErrorText : 'Password must contain at least 8 characters, including 1 uppercase and 1 number.',
          }
-  }
+    }
 
 
     this.handleChange = this.handleChange.bind(this);
@@ -53,7 +52,7 @@ class Login extends Component {
           value: value
         }
       });
-    } else if (this.state.passPattern.test(value) && name == 'password') {
+    } else if (this.state.config.passwordPattern.test(value) && name == 'password') {
       this.setState({
         [name]: {
           error: false,
@@ -75,7 +74,7 @@ class Login extends Component {
   handleSubmit(event) {
     event.preventDefault();
     if(!this.state.config.handleSubmit){
-      alert('Please define submit handle function in config');
+      alert('Please define submit handle method in config');
       return false;
     }
     const user = {
@@ -87,7 +86,7 @@ class Login extends Component {
       this.handleChange('email', user.email);
       error = true;
     }
-    if(!this.state.passPattern.test(user.password)){
+    if(!this.state.config.passwordPattern.test(user.password)){
       this.handleChange('password', user.password);
       error = true;
     }
@@ -140,11 +139,6 @@ class Login extends Component {
         </div>
 
       <button type="submit" className='btn' >Submit</button>
-
-
-
-
-
 
         </form>
 

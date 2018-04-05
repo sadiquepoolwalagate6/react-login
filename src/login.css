@@ -62,7 +62,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    background-image: none;
+    background: #e0e0e0;
     border: 1px solid transparent;
     border-radius: 4px;
 }
